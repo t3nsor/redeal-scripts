@@ -2,11 +2,11 @@
 # maximal (17 HCP) hand responds to partner's Jacoby transfer by bidding 3 of
 # the major when they have 4+ card support.
 
-# Computed payoff of superaccepting (N = 10000):
-# MP      = 0.00 +/- 0.01
-# IMPs V  = 1.63 +/- 0.06
-# IMPs NV = 0.65 +/- 0.04
-# 3256 hands with same score and strain
+# Computed payoff of superaccepting (N = 50000):
+# MP      = 0.00 +/- 0.00
+# IMPs V  = 1.67 +/- 0.03
+# IMPs NV = 0.67 +/- 0.02
+# 16219 hands with same score and strain
 
 import redeal
 
@@ -140,6 +140,10 @@ def contract(deal, use_superaccept):
         sol = sh
         nol = nh
     if ssl < 4: return None
+
+    # In the case where north has exactly 4 of the other major and inv+
+    # strength, they'll choose to go through Stayman instead of a transfer.
+    if nol == 4 and nhcp >= 9: return None
 
     if use_superaccept:
         # South bids 3 of the suit. North now knows a fit exists and South has
